@@ -1,0 +1,41 @@
+﻿@page "/stock"
+@using roastreview.data;
+@using roastreview.models;
+
+<h3>Stock</h3>
+@if (stockItems == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Rating</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in stockItems)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Name</td>
+                    <td>@item.Rating</td>
+                    
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+@code {
+    private StockItem[]? stockItems;
+
+    protected override async Task OnInitializedAsync()
+    {
+        stockItems =  StockManager.GetStock().ToArray();
+    }
+}
